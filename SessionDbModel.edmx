@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SessionEF_Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="SessionEF_ModelStoreContainer">
+          <EntitySet Name="tbl_ServerSession" EntityType="SessionEF_Model.Store.tbl_ServerSession" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="tbl_ServerSession">
+          <Key>
+            <PropertyRef Name="Session_ID" />
+          </Key>
+          <Property Name="Session_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SessionValue" Type="nvarchar" MaxLength="100" />
+          <Property Name="User_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Ins_Dt" Type="datetime" />
+          <Property Name="Up_Dt" Type="datetime" />
+        </EntityType>
+        <Function Name="Update_Session" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="User_ID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SessionID" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="usp_upload_ArtistProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImagePath" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+          <Parameter Name="Art_ID" Type="nvarchar" Mode="InOut" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SessionEF_Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SessionDbContext" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_ServerSession" EntityType="SessionEF_Model.tbl_ServerSession" />
+          <FunctionImport Name="Update_Session">
+            <Parameter Name="User_ID" Mode="In" Type="String" />
+            <Parameter Name="SessionID" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_upload_ArtistProfile">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="ImagePath" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Art_ID" Mode="InOut" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="tbl_ServerSession">
+          <Key>
+            <PropertyRef Name="Session_ID" />
+          </Key>
+          <Property Name="Session_ID" Type="Guid" Nullable="false" />
+          <Property Name="SessionValue" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="User_ID" Type="Guid" Nullable="false" />
+          <Property Name="Ins_Dt" Type="DateTime" Precision="3" />
+          <Property Name="Up_Dt" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SessionEF_ModelStoreContainer" CdmEntityContainer="SessionDbContext">
+          <EntitySetMapping Name="tbl_ServerSession">
+            <EntityTypeMapping TypeName="SessionEF_Model.tbl_ServerSession">
+              <MappingFragment StoreEntitySet="tbl_ServerSession">
+                <ScalarProperty Name="Session_ID" ColumnName="Session_ID" />
+                <ScalarProperty Name="SessionValue" ColumnName="SessionValue" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Ins_Dt" ColumnName="Ins_Dt" />
+                <ScalarProperty Name="Up_Dt" ColumnName="Up_Dt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Update_Session" FunctionName="SessionEF_Model.Store.Update_Session" />
+          <FunctionImportMapping FunctionImportName="usp_upload_ArtistProfile" FunctionName="SessionEF_Model.Store.usp_upload_ArtistProfile" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
